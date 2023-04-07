@@ -3,7 +3,8 @@ package com.disi.TravelPoints.model;
 import com.disi.TravelPoints.enums.RoleName;
 
 import jakarta.persistence.*;
-import org.springframework.data.relational.core.mapping.Table;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "roles")
@@ -15,8 +16,16 @@ public class Role {
     @Enumerated(EnumType.STRING)
     @Column(name = "name")
     private RoleName name;
+    @OneToMany(mappedBy="role", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    private Set<User> users;
 
     public Role() {}
+
+    public Role(Long id, RoleName name, Set<User> users) {
+        this.id = id;
+        this.name = name;
+        this.users = users;
+    }
 
     public Long getId() {
         return id;
@@ -32,5 +41,22 @@ public class Role {
 
     public void setName(RoleName name) {
         this.name = name;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", name=" + name +
+                ", users=" + users +
+                '}';
     }
 }
