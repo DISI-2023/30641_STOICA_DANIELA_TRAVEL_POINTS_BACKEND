@@ -21,12 +21,6 @@ public class Role {
 
     public Role() {}
 
-    public Role(Long id, RoleName name, Set<User> users) {
-        this.id = id;
-        this.name = name;
-        this.users = users;
-    }
-
     public Long getId() {
         return id;
     }
