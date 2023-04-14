@@ -1,6 +1,5 @@
 package com.disi.TravelPoints.model;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
