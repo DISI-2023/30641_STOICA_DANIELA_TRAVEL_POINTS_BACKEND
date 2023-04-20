@@ -25,4 +25,8 @@ public class LandmarkService {
 
         landmarkRepository.save(landmark);
     }
+
+    public String getLandmarkDescriptionById(Long id) {
+        return landmarkRepository.getDescriptionById(id);
+    }
 }
