@@ -17,11 +17,17 @@ import java.util.List;
 public class LandmarkController {
     private final LandmarkService landmarkService;
 
+
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable long id) {
+        landmarkService.deleteById(id);
+    }
+
     @GetMapping()
     public ResponseEntity<List<LandmarkDetails>> getAll() {
         return ResponseEntity.ok(landmarkService.findAll());
     }
-    
+
     @PostMapping()
     public void add(@RequestBody AddLandmarkRequest request) throws CustomException {
         try {

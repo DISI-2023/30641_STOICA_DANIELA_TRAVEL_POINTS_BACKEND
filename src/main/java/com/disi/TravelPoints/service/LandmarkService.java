@@ -13,6 +13,10 @@ import java.util.List;
 public class LandmarkService {
     private final LandmarkRepository landmarkRepository;
 
+    public void deleteById(long id) {
+        landmarkRepository.deleteById(id);
+    }
+    
     public List<LandmarkDetails> findAll(){
         return landmarkRepository
                 .findAll()
