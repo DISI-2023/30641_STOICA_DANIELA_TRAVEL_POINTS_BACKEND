@@ -40,9 +40,4 @@ public class LandmarkController {
                     .build();
         }
     }
-    
-    @GetMapping("/{id}/description")
-    public String getLandmarkDescriptionById(@PathVariable Long id) {
-        return landmarkService.getLandmarkDescriptionById(id);
-    }
 }
