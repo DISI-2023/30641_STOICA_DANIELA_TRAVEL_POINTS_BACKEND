@@ -3,6 +3,8 @@ package com.disi.TravelPoints.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -28,4 +30,6 @@ public class Landmark {
     private String category;
     @Column(name = "price")
     private float price;
+    @ManyToMany(mappedBy = "landmarks")
+    Set<Wishlist> wishlists;
 }
