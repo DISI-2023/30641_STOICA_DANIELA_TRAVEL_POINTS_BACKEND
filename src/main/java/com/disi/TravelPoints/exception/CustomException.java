@@ -9,3 +9,4 @@ public class CustomException extends Exception {
     private HttpStatus status;
     private String message;
 }
+

@@ -2,7 +2,6 @@ package com.disi.TravelPoints.exception;
 
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Map;
 
 @ControllerAdvice
