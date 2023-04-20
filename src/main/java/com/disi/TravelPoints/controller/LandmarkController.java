@@ -1,6 +1,6 @@
 package com.disi.TravelPoints.controller;
 
-import com.disi.TravelPoints.model.Landmark;
+import com.disi.TravelPoints.dto.LandmarkDetails;
 import com.disi.TravelPoints.service.LandmarkService;
 import lombok.*;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ public class LandmarkController {
     private final LandmarkService landmarkService;
 
     @GetMapping()
-    public ResponseEntity<List<Landmark>> getAll() {
+    public ResponseEntity<List<LandmarkDetails>> getAll() {
         return ResponseEntity.ok(landmarkService.findAll());
     }
 }
