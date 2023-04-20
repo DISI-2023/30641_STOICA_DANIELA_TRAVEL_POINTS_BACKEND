@@ -1,7 +1,6 @@
 package com.disi.TravelPoints.exception;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import org.springframework.http.HttpStatus;
 
 @Data
@@ -10,3 +9,4 @@ public class CustomException extends Exception {
     private HttpStatus status;
     private String message;
 }
+
