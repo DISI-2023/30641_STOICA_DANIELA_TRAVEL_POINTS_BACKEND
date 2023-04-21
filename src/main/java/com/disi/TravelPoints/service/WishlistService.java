@@ -8,6 +8,7 @@ import com.disi.TravelPoints.model.User;
 import com.disi.TravelPoints.model.Wishlist;
 import com.disi.TravelPoints.repository.LandmarkRepository;
 import com.disi.TravelPoints.repository.UserRepository;
+import com.disi.TravelPoints.model.Wishlist;
 import com.disi.TravelPoints.repository.WishlistRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
