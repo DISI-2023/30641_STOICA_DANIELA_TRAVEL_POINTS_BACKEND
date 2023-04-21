@@ -54,4 +54,8 @@ public class LandmarkService {
     public String getLandmarkDescriptionById(Long id) {
         return landmarkRepository.getDescriptionById(id);
     }
+
+    public byte[] getLandmarkAudioDescriptionById(Long id) {
+        return landmarkRepository.getAudioDescriptionById(id);
+    }
 }

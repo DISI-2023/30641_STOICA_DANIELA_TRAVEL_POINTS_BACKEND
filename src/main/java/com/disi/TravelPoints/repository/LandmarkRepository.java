@@ -10,4 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface LandmarkRepository extends JpaRepository<Landmark, Long> {
     @Query(value = "SELECT l.text_description FROM landmarks l WHERE l.id = :id", nativeQuery = true)
     String getDescriptionById(@Param("id") Long id);
+
+    @Query(value = "SELECT l.audio_description FROM landmarks l WHERE l.id = :id", nativeQuery = true)
+    byte[] getAudioDescriptionById(@Param("id") Long id);
 }

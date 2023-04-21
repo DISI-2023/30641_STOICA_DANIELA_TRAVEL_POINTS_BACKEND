@@ -45,4 +45,9 @@ public class LandmarkController {
     public String getLandmarkDescriptionById(@PathVariable Long id) {
         return landmarkService.getLandmarkDescriptionById(id);
     }
+
+    @GetMapping("/{id}/audio-description")
+    public byte[] getLandmarkAudioDescriptionById(@PathVariable Long id) {
+        return landmarkService.getLandmarkAudioDescriptionById(id);
+    }
 }
