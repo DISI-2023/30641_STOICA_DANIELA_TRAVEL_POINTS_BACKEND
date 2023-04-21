@@ -1,17 +1,13 @@
 package com.disi.TravelPoints.service;
 
 import com.disi.TravelPoints.dto.LandmarkDetails;
-import com.disi.TravelPoints.dto.UserDetails;
-import com.disi.TravelPoints.exception.CustomException;
 import com.disi.TravelPoints.model.Landmark;
 import com.disi.TravelPoints.model.User;
 import com.disi.TravelPoints.model.Wishlist;
 import com.disi.TravelPoints.repository.LandmarkRepository;
 import com.disi.TravelPoints.repository.UserRepository;
-import com.disi.TravelPoints.model.Wishlist;
 import com.disi.TravelPoints.repository.WishlistRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
