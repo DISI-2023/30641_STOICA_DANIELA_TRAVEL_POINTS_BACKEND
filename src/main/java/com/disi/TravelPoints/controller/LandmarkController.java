@@ -39,6 +39,18 @@ public class LandmarkController {
                     .build();
         }
     }
+    @PutMapping()
+        public ResponseEntity<Long> update(@RequestBody LandmarkDetails request) throws CustomException {
+        try {
+            return ResponseEntity.ok(landmarkService.update(request));
+        } catch (RuntimeException exception){
+            throw CustomException
+                    .builder()
+                    .status(HttpStatus.BAD_REQUEST)
+                    .message("Update Failed")
+                    .build();
+        }
+    }
     
     @GetMapping("/{id}/description")
     public String getLandmarkDescriptionById(@PathVariable Long id) {
