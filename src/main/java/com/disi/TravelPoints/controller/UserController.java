@@ -31,7 +31,15 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Long> register(@RequestBody RegisterRequest request) {
-        return new ResponseEntity<>(userService.register(request), HttpStatus.CREATED);
+    public ResponseEntity<Long> register(@RequestBody RegisterRequest request) throws CustomException {
+        try {
+            return new ResponseEntity<>(userService.register(request), HttpStatus.CREATED);
+        } catch (Exception exception) {
+            throw CustomException
+                    .builder()
+                    .status(HttpStatus.BAD_REQUEST)
+                    .message(exception.getMessage())
+                    .build();
+        }
     }
 }

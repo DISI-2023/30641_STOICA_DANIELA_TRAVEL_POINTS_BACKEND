@@ -11,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -38,9 +40,13 @@ public class UserService {
                 .build();
     }
 
-    public Long register(RegisterRequest request) {
-        var touristRole = roleService.findByRoleName(RoleName.TOURIST);
+    public Long register(RegisterRequest request) throws Exception {
+        final Optional<User> userByEmail = userRepository.findByEmail(request.getEmail());
+        if (userByEmail.isPresent()) {
+            throw new Exception("This email is already taken!");
+        }
 
+        var touristRole = roleService.findByRoleName(RoleName.TOURIST);
         User user = User
                 .builder()
                 .name(request.getName())
