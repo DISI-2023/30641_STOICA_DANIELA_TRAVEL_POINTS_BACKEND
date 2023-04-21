@@ -46,9 +46,11 @@ public class WishlistService {
         }
 
         Wishlist actualWishlist = wishlist.get();
-        final Set<Landmark> landmarks = actualWishlist.getLandmarks();
+        Set<Landmark> landmarks = actualWishlist.getLandmarks();
         landmarks.add(landmark);
         actualWishlist.setLandmarks(landmarks);
+        wishlistRepository.save(actualWishlist);
+
         return actualWishlist.getId();
     }
 
