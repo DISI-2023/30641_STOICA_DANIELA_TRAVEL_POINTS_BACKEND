@@ -18,7 +18,7 @@ public class ReviewService {
     private final LandmarkRepository landmarkRepository;
 
     public void add(AddReviewRequest request) throws CustomException {
-        Landmark landmark = landmarkRepository.findById(Long.valueOf(request.getLandmark_id()))
+        Landmark landmark = landmarkRepository.findById(request.getLandmark_id())
                 .orElseThrow(() -> CustomException
                         .builder()
                         .status(HttpStatus.NOT_FOUND)

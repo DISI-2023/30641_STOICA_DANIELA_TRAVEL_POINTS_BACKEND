@@ -8,5 +8,5 @@ import lombok.Data;
 public class AddReviewRequest {
     private String comment;
     private Integer rating;
-    private Integer landmark_id;
+    private Long landmark_id;
 }
