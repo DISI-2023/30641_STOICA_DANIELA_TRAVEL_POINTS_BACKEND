@@ -32,4 +32,6 @@ public class Landmark {
     private float price;
     @ManyToMany(mappedBy = "landmarks")
     Set<Wishlist> wishlists;
+    @OneToMany(mappedBy="landmark", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    private Set<Review> reviews;
 }
