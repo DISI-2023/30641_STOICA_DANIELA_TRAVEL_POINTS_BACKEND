@@ -34,4 +34,6 @@ public class Landmark {
     Set<Wishlist> wishlists;
     @OneToMany(mappedBy="landmark", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     private Set<Review> reviews;
+    @OneToMany(mappedBy="landmark", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    private Set<Offer> offers;
 }
