@@ -1,11 +1,8 @@
 package com.disi.TravelPoints.model;
 
-
-;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.sql.Timestamp;
 
 @NoArgsConstructor
