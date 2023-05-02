@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/landmark")
 @RequiredArgsConstructor
+
 public class LandmarkController {
     private final LandmarkService landmarkService;
 
