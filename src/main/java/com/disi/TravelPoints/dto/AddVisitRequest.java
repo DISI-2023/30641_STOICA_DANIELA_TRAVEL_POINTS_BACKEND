@@ -3,11 +3,11 @@ package com.disi.TravelPoints.dto;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
 public class AddVisitRequest {
     private Long landmarkId;
-    private LocalDate date;
+    private LocalDateTime date;
 }
