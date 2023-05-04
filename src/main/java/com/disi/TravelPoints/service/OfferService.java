@@ -5,6 +5,7 @@ import com.disi.TravelPoints.dto.OfferDetails;
 import com.disi.TravelPoints.exception.CustomException;
 import com.disi.TravelPoints.model.Landmark;
 import com.disi.TravelPoints.model.Offer;
+import com.disi.TravelPoints.model.Wishlist;
 import com.disi.TravelPoints.repository.LandmarkRepository;
 import com.disi.TravelPoints.repository.OfferRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,8 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -63,5 +65,20 @@ public class OfferService {
                     .build();
             offerRepository.save(offer);
         }
+    }
+
+    public List<String> getUsersEmailsForActiveOffers() {
+        final List<Offer> activeOffers = offerRepository.findAll().stream()
+                .filter(offer -> offer.getEnd().toLocalDateTime().isAfter(LocalDateTime.now()))
+                .collect(Collectors.toList());
+
+        final List<Wishlist> wishlists = activeOffers.stream()
+                .map(activeOffer -> activeOffer.getLandmark().getWishlists())
+                .flatMap(Set::stream)
+                .collect(Collectors.toList());
+
+        return wishlists.stream()
+                .map(wishlist -> wishlist.getUser().getEmail())
+                .collect(Collectors.toList());
     }
 }

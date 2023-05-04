@@ -1,15 +1,13 @@
 package com.disi.TravelPoints.controller;
 
-import com.disi.TravelPoints.dto.AddLandmarkRequest;
 import com.disi.TravelPoints.dto.AddOfferRequest;
 import com.disi.TravelPoints.exception.CustomException;
 import com.disi.TravelPoints.service.OfferService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/offer")
@@ -29,5 +27,10 @@ public class OfferController {
                     .message("Insertion Failed")
                     .build();
         }
+    }
+
+    @GetMapping("/emails")
+    public ResponseEntity<List<String>> getUsersEmailsForActiveOffers() {
+        return ResponseEntity.ok(offerService.getUsersEmailsForActiveOffers());
     }
 }
