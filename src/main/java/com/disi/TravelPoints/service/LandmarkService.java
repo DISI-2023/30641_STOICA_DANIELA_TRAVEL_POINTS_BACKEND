@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -67,5 +68,25 @@ public class LandmarkService {
 
     public byte[] getLandmarkAudioDescriptionById(Long id) {
         return landmarkRepository.getAudioDescriptionById(id);
+    }
+
+    public List<LandmarkDetails> getFirstFiveMostVisitedLandmarks() {
+        return landmarkRepository.getFirstFiveMostVisitedLandmarks().stream()
+                .map(this::mapLandmarkToLandmarkDetails)
+                .collect(Collectors.toList());
+    }
+
+    private LandmarkDetails mapLandmarkToLandmarkDetails(Landmark landmark) {
+        return LandmarkDetails
+                .builder()
+                .id(landmark.getId())
+                .name(landmark.getName())
+                .location(landmark.getLocation())
+                .image(landmark.getImage())
+                .textDescription(landmark.getTextDescription())
+                .audioDescription(landmark.getAudioDescription())
+                .price(landmark.getPrice())
+                .category(landmark.getCategory())
+                .build();
     }
 }
