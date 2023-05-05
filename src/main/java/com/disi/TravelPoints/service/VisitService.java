@@ -1,21 +1,23 @@
 package com.disi.TravelPoints.service;
 
-import com.disi.TravelPoints.dto.AddReviewRequest;
 import com.disi.TravelPoints.dto.AddVisitRequest;
+import com.disi.TravelPoints.dto.MonthFrequencyVisitDTO;
 import com.disi.TravelPoints.exception.CustomException;
 import com.disi.TravelPoints.model.Landmark;
-import com.disi.TravelPoints.model.Review;
 import com.disi.TravelPoints.model.Visit;
 import com.disi.TravelPoints.repository.LandmarkRepository;
+import com.disi.TravelPoints.repository.VisitJdbcRepository;
 import com.disi.TravelPoints.repository.VisitRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class VisitService {
     private final VisitRepository visitRepository;
+    private final VisitJdbcRepository visitJdbcRepository;
     private final LandmarkRepository landmarkRepository;
 
     public Long addVisit(AddVisitRequest request) throws CustomException {
@@ -33,5 +35,9 @@ public class VisitService {
                 .build();
 
         return visitRepository.save(visit).getId();
+    }
+
+    public List<MonthFrequencyVisitDTO> getMonthFrequencyPerYear(String year) {
+        return visitJdbcRepository.getMonthsFrequencyPerYear(year);
     }
 }
