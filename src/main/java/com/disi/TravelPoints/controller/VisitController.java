@@ -1,12 +1,15 @@
 package com.disi.TravelPoints.controller;
 
 import com.disi.TravelPoints.dto.AddVisitRequest;
+import com.disi.TravelPoints.dto.HourFrequencyVisitDTO;
 import com.disi.TravelPoints.exception.CustomException;
 import com.disi.TravelPoints.service.VisitService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/visit")
@@ -25,5 +28,14 @@ public class VisitController {
                     .message(exception.getMessage())
                     .build();
         }
+    }
+
+    @GetMapping("/day-frequency")
+    public ResponseEntity<List<HourFrequencyVisitDTO>> getMonthFrequencyPerYear(
+            @RequestParam String year,
+            @RequestParam String month,
+            @RequestParam String day
+    ) {
+        return ResponseEntity.ok(visitService.getHourFrequencyPerDay(year, month, day));
     }
 }
