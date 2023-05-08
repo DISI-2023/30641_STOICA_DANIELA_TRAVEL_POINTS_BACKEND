@@ -15,12 +15,13 @@ import java.util.List;
 public class VisitJdbcRepository {
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
-    public List<HourFrequencyVisitDTO> getHourFrequencyPerDay(String year, String month, String day) {
+    public List<HourFrequencyVisitDTO> getHourFrequencyPerDay(String year, String month, String day, long landmarkId) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         String query = "SELECT EXTRACT(HOUR FROM date) as hour, COUNT(*) as visit_count " +
-                "FROM visits WHERE EXTRACT(YEAR FROM date) = " + year +
+                "FROM visits WHERE landmark_id = " + landmarkId +
+                " AND EXTRACT(YEAR FROM date) = " + year +
                 " AND EXTRACT(MONTH FROM date) = " + month +
-                " AND EXTRACT(DATE FROM date) = " + day +
+                " AND EXTRACT(DAY FROM date) = " + day +
                 " GROUP BY EXTRACT(HOUR FROM date) ORDER BY EXTRACT(HOUR FROM date)";
 
         return jdbcTemplate.query(query, parameters, (rs, rowNum) -> mapResultToHourFrequencyDTO(rs));

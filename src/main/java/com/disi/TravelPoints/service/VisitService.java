@@ -40,7 +40,7 @@ public class VisitService {
         return visitRepository.save(visit).getId();
     }
 
-    public List<HourFrequencyVisitDTO> getHourFrequencyPerDay(String year, String month, String day) {
-        return visitJdbcRepository.getHourFrequencyPerDay(year, month, day);
+    public List<HourFrequencyVisitDTO> getHourFrequencyPerDay(String year, String month, String day, long landmarkId) {
+        return visitJdbcRepository.getHourFrequencyPerDay(year, month, day, landmarkId);
     }
 }

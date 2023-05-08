@@ -31,11 +31,12 @@ public class VisitController {
     }
 
     @GetMapping("/day-frequency")
-    public ResponseEntity<List<HourFrequencyVisitDTO>> getMonthFrequencyPerYear(
+    public ResponseEntity<List<HourFrequencyVisitDTO>> geHourFrequencyPerDay(
             @RequestParam String year,
             @RequestParam String month,
-            @RequestParam String day
+            @RequestParam String day,
+            @RequestParam Long landmarkId
     ) {
-        return ResponseEntity.ok(visitService.getHourFrequencyPerDay(year, month, day));
+        return ResponseEntity.ok(visitService.getHourFrequencyPerDay(year, month, day, landmarkId));
     }
 }
