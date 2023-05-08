@@ -1,6 +1,7 @@
 package com.disi.TravelPoints.controller;
 
 import com.disi.TravelPoints.dto.AddOfferRequest;
+import com.disi.TravelPoints.dto.OfferDetails;
 import com.disi.TravelPoints.exception.CustomException;
 import com.disi.TravelPoints.service.OfferService;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +33,18 @@ public class OfferController {
     @GetMapping("/emails")
     public ResponseEntity<List<String>> getUsersEmailsForActiveOffers() {
         return ResponseEntity.ok(offerService.getUsersEmailsForActiveOffers());
+    }
+
+    @PutMapping
+    public void updateOffer(@RequestBody OfferDetails offer) throws CustomException {
+        try {
+            offerService.updateOffer(offer);
+        } catch (Exception exception) {
+            throw CustomException
+                    .builder()
+                    .status(HttpStatus.BAD_REQUEST)
+                    .message("Update Failed")
+                    .build();
+        }
     }
 }
