@@ -28,6 +28,11 @@ public class LandmarkController {
         return ResponseEntity.ok(landmarkService.findAll(category, location));
     }
 
+    @GetMapping("/most-visited")
+    public ResponseEntity<List<LandmarkDetails>> getFirstFiveMostVisitedLandmarks() {
+        return ResponseEntity.ok(landmarkService.getFirstFiveMostVisitedLandmarks());
+    }
+
     @PostMapping
     public void add(@RequestBody AddLandmarkRequest request) throws CustomException {
         try {
