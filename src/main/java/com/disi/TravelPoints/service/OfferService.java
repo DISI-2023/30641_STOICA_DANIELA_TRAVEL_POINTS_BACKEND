@@ -82,6 +82,10 @@ public class OfferService {
                 .collect(Collectors.toList());
     }
 
+    public void deleteById(Long id) {
+        offerRepository.deleteById(id);
+    }
+    
     public List<OfferDetails> getOffer(Long landmarkId) {
         return offerRepository
                 .findAllByLandmark_Id(landmarkId)
