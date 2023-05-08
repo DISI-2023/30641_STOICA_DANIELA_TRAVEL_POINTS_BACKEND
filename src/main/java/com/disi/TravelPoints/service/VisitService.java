@@ -37,7 +37,7 @@ public class VisitService {
         return visitRepository.save(visit).getId();
     }
 
-    public List<MonthFrequencyVisitDTO> getMonthFrequencyPerYear(String year) {
-        return visitJdbcRepository.getMonthsFrequencyPerYear(year);
+    public List<MonthFrequencyVisitDTO> getMonthFrequencyPerYear(String year, Long landmarkId) {
+        return visitJdbcRepository.getMonthsFrequencyPerYear(year, landmarkId);
     }
 }

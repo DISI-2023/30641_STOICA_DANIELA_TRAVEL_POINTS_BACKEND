@@ -30,7 +30,7 @@ public class VisitController {
     }
 
     @GetMapping("/year-frequency")
-    public ResponseEntity<List<MonthFrequencyVisitDTO>> getMonthFrequencyPerYear(@RequestParam(defaultValue = "2023") String year) {
-        return ResponseEntity.ok(visitService.getMonthFrequencyPerYear(year));
+    public ResponseEntity<List<MonthFrequencyVisitDTO>> getMonthFrequencyPerYear(@RequestParam(defaultValue = "2023") String year, @RequestParam Long landmarkId) {
+        return ResponseEntity.ok(visitService.getMonthFrequencyPerYear(year, landmarkId));
     }
 }

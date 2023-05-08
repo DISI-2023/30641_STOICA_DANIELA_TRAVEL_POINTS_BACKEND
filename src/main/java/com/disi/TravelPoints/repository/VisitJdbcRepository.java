@@ -19,10 +19,11 @@ import java.util.Locale;
 public class VisitJdbcRepository {
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
-    public List<MonthFrequencyVisitDTO> getMonthsFrequencyPerYear(String year) {
+    public List<MonthFrequencyVisitDTO> getMonthsFrequencyPerYear(String year, Long landmarkId) {
         MapSqlParameterSource parameters = new MapSqlParameterSource();
         String query = "SELECT EXTRACT(MONTH FROM date) as month, COUNT(*) as visit_count " +
                 "FROM visits WHERE EXTRACT(YEAR FROM date) = " + year +
+                " AND landmark_id = " + landmarkId +
                 " GROUP BY EXTRACT(MONTH FROM date) ORDER BY EXTRACT(MONTH FROM date)";
 
         return jdbcTemplate.query(query, parameters, (rs, rowNum) -> mapResultToMonthFrequencyDTO(rs));
