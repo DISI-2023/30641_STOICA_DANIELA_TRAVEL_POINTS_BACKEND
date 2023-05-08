@@ -1,6 +1,7 @@
 package com.disi.TravelPoints.controller;
 
 import com.disi.TravelPoints.dto.AddOfferRequest;
+import com.disi.TravelPoints.dto.OfferDetails;
 import com.disi.TravelPoints.exception.CustomException;
 import com.disi.TravelPoints.service.OfferService;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,7 @@ public class OfferController {
         return ResponseEntity.ok(offerService.getUsersEmailsForActiveOffers());
     }
 
+
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable("id") Long id) throws CustomException {
         try{
@@ -45,5 +47,10 @@ public class OfferController {
                     .message("Deletion Failed")
                     .build();
         }
+    }
+    
+    @GetMapping("/all/{landmarkId}")
+    public ResponseEntity<List<OfferDetails>> getOffersByLandmarkId(@PathVariable("landmarkId") Long landmarkId) {
+        return ResponseEntity.ok(offerService.getOffer(landmarkId));
     }
 }
