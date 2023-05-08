@@ -1,12 +1,9 @@
 package com.disi.TravelPoints.model;
 
 
-import com.disi.TravelPoints.enums.RoleName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
