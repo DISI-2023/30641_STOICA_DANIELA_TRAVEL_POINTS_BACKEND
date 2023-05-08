@@ -81,4 +81,8 @@ public class OfferService {
                 .map(wishlist -> wishlist.getUser().getEmail())
                 .collect(Collectors.toList());
     }
+
+    public void deleteById(Long id) {
+        offerRepository.deleteById(id);
+    }
 }

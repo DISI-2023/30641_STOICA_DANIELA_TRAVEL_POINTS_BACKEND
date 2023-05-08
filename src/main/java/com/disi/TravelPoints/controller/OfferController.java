@@ -33,4 +33,17 @@ public class OfferController {
     public ResponseEntity<List<String>> getUsersEmailsForActiveOffers() {
         return ResponseEntity.ok(offerService.getUsersEmailsForActiveOffers());
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable("id") Long id) throws CustomException {
+        try{
+            offerService.deleteById(id);
+        } catch (Exception exception){
+            throw CustomException
+                    .builder()
+                    .status(HttpStatus.BAD_REQUEST)
+                    .message("Deletion Failed")
+                    .build();
+        }
+    }
 }
