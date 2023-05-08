@@ -16,7 +16,10 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
 	implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    runtimeOnly("org.postgresql:postgresql")
+	// https://mvnrepository.com/artifact/com.sun.mail/javax.mail
+	implementation("com.sun.mail:javax.mail:1.6.2")
+
+	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	//spring-security
 	implementation("org.springframework.boot:spring-boot-starter-security")

@@ -1,6 +1,5 @@
 package com.disi.TravelPoints.service;
 
-import com.disi.TravelPoints.dto.AddLandmarkRequest;
 import com.disi.TravelPoints.dto.AddReviewRequest;
 import com.disi.TravelPoints.exception.CustomException;
 import com.disi.TravelPoints.model.Landmark;
