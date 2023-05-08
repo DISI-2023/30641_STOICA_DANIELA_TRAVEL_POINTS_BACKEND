@@ -81,4 +81,23 @@ public class OfferService {
                 .map(wishlist -> wishlist.getUser().getEmail())
                 .collect(Collectors.toList());
     }
+
+    public List<OfferDetails> getOffer(Long landmarkId) {
+        return offerRepository
+                .findAllByLandmark_Id(landmarkId)
+                .stream()
+                .map(this::mapOfferToOfferDetails)
+                .collect(Collectors.toList());
+    }
+
+    private OfferDetails mapOfferToOfferDetails(Offer offer) {
+        return OfferDetails
+                .builder()
+                .id(offer.getId())
+                .start(offer.getStart())
+                .end(offer.getEnd())
+                .discount(offer.getDiscount())
+                .landmark_id(offer.getLandmark().getId())
+                .build();
+    }
 }

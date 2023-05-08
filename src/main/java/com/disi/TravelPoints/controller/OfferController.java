@@ -1,6 +1,7 @@
 package com.disi.TravelPoints.controller;
 
 import com.disi.TravelPoints.dto.AddOfferRequest;
+import com.disi.TravelPoints.dto.OfferDetails;
 import com.disi.TravelPoints.exception.CustomException;
 import com.disi.TravelPoints.service.OfferService;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +33,10 @@ public class OfferController {
     @GetMapping("/emails")
     public ResponseEntity<List<String>> getUsersEmailsForActiveOffers() {
         return ResponseEntity.ok(offerService.getUsersEmailsForActiveOffers());
+    }
+
+    @GetMapping("/all/{landmarkId}")
+    public ResponseEntity<List<OfferDetails>> getOffersByLandmarkId(@PathVariable("landmarkId") Long landmarkId) {
+        return ResponseEntity.ok(offerService.getOffer(landmarkId));
     }
 }
