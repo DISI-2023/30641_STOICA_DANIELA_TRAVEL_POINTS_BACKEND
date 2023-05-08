@@ -1,11 +1,10 @@
 package com.disi.TravelPoints.service;
 
-import com.disi.TravelPoints.dto.AddReviewRequest;
 import com.disi.TravelPoints.dto.AddVisitRequest;
 import com.disi.TravelPoints.dto.HourFrequencyVisitDTO;
+import com.disi.TravelPoints.dto.MonthFrequencyVisitDTO;
 import com.disi.TravelPoints.exception.CustomException;
 import com.disi.TravelPoints.model.Landmark;
-import com.disi.TravelPoints.model.Review;
 import com.disi.TravelPoints.model.Visit;
 import com.disi.TravelPoints.repository.LandmarkRepository;
 import com.disi.TravelPoints.repository.VisitJdbcRepository;
@@ -38,6 +37,10 @@ public class VisitService {
                 .build();
 
         return visitRepository.save(visit).getId();
+    }
+
+    public List<MonthFrequencyVisitDTO> getMonthFrequencyPerYear(String year, Long landmarkId) {
+        return visitJdbcRepository.getMonthsFrequencyPerYear(year, landmarkId);
     }
 
     public List<HourFrequencyVisitDTO> getHourFrequencyPerDay(String year, String month, String day, long landmarkId) {
