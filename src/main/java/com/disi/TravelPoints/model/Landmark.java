@@ -7,7 +7,8 @@ import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 @Entity
 @Table(name = "landmarks")
