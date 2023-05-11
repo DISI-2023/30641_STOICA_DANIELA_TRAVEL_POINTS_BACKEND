@@ -37,6 +37,6 @@ public class Landmark {
     private Set<Review> reviews;
     @OneToMany(mappedBy="landmark", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     private Set<Offer> offers;
-    @OneToMany(mappedBy="landmark", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy="landmark", cascade = {CascadeType.ALL}, orphanRemoval = true)
     private Set<Visit> visits;
 }
