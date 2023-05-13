@@ -18,21 +18,23 @@ public class OfferController {
     private final OfferService offerService;
 
     @PostMapping
-    public void add(@RequestBody AddOfferRequest request) throws CustomException {
+    public Long add(@RequestBody AddOfferRequest request) throws CustomException {
         try {
-            offerService.add(request);
+            return offerService.add(request);
         } catch (RuntimeException exception){
             throw CustomException
                     .builder()
                     .status(HttpStatus.BAD_REQUEST)
                     .message("Insertion Failed")
                     .build();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
     @GetMapping("/emails")
-    public ResponseEntity<List<String>> getUsersEmailsForActiveOffers() {
-        return ResponseEntity.ok(offerService.getUsersEmailsForActiveOffers());
+    public ResponseEntity<List<String>> getUsersEmailsForActiveOffers(@RequestParam Long offerId) throws CustomException {
+        return ResponseEntity.ok(offerService.getUsersEmailsForActiveOffers(offerId));
     }
 
 
