@@ -12,8 +12,8 @@ import javax.mail.*;
 public class EmailController {
     private final EmailService emailService;
     @PostMapping
-    public void sendEmail(@RequestBody Email message) throws MessagingException {
-        emailService.sendEmail(message);
+    public boolean sendEmail(@RequestBody Email message) throws MessagingException {
+        return emailService.sendEmail(message);
     }
 }
 

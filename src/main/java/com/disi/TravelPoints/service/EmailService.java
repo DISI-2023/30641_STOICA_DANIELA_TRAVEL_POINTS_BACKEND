@@ -13,7 +13,7 @@ import java.util.Properties;
 @Service
 @RequiredArgsConstructor
 public class EmailService {
-    public void sendEmail(Email message) throws MessagingException {
+    public boolean sendEmail(Email message) throws MessagingException {
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
@@ -34,5 +34,6 @@ public class EmailService {
         emailMessage.setText(message.getBody());
 
         Transport.send(emailMessage);
+        return true;
     }
 }
