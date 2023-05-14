@@ -88,6 +88,30 @@ public class OfferService {
                 .collect(Collectors.toList());
     }
 
+    public void updateOffer(OfferDetails request) throws Exception {
+        var offer =  offerRepository.findById(request.getId())
+                .orElseThrow(() -> new Exception("Offer not found"));
+
+        Timestamp currentDate = new Timestamp(System.currentTimeMillis());
+
+        if(request.getEnd() != null){
+            if(!request.getEnd().after(currentDate)) {
+                throw new Exception("The end date cannot be in the past");
+            }
+
+            if(!request.getEnd().after(offer.getStart())) {
+                throw new Exception("The start date cannot be before start date");
+            }
+            offer.setEnd(request.getEnd());
+        }
+        if(request.getDiscount() != null && request.getDiscount() > 0)
+        {
+            offer.setDiscount(request.getDiscount());
+        }
+
+        offerRepository.save(offer);
+    }
+  
     public void deleteById(Long id) {
         offerRepository.deleteById(id);
     }

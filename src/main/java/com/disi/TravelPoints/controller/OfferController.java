@@ -55,4 +55,17 @@ public class OfferController {
     public ResponseEntity<List<OfferDetails>> getOffersByLandmarkId(@PathVariable("landmarkId") Long landmarkId) {
         return ResponseEntity.ok(offerService.getOffer(landmarkId));
     }
+
+    @PutMapping
+    public void updateOffer(@RequestBody OfferDetails offer) throws CustomException {
+        try {
+            offerService.updateOffer(offer);
+        } catch (Exception exception) {
+            throw CustomException
+                    .builder()
+                    .status(HttpStatus.BAD_REQUEST)
+                    .message("Update Failed")
+                    .build();
+        }
+    }
 }
