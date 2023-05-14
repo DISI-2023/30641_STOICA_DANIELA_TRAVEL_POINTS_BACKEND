@@ -1,6 +1,7 @@
 package com.disi.TravelPoints.repository;
 
 import com.disi.TravelPoints.dto.LandmarkDetails;
+import com.disi.TravelPoints.dto.MostVisitedLandmarkDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -36,6 +37,17 @@ public class LandmarkJdbcRepository {
         return jdbcTemplate.query(query.toString(), parameters, (rs, rowNum) -> mapLandmarkToLandmarkDetails(rs));
     }
 
+    public List<MostVisitedLandmarkDTO> getFirstFiveMostVisitedLandmarks() {
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        String query = "SELECT l.*, COUNT(v.landmark_id) as visit_count " +
+                "FROM landmarks l " +
+                "INNER JOIN visits v ON l.id = v.landmark_id " +
+                "GROUP BY l.id " +
+                "ORDER BY COUNT(v.landmark_id) DESC " +
+                "LIMIT 5";
+        return jdbcTemplate.query(query, parameters, (rs, rowNum) -> mapLandmarkToMostVisitedLandmarkDTO(rs));
+    }
+
     private LandmarkDetails mapLandmarkToLandmarkDetails(ResultSet rs) throws SQLException {
         return LandmarkDetails
                 .builder()
@@ -48,5 +60,21 @@ public class LandmarkJdbcRepository {
                 .price(rs.getFloat("price"))
                 .category(rs.getString("category"))
                 .build();
+    }
+
+    private MostVisitedLandmarkDTO mapLandmarkToMostVisitedLandmarkDTO(ResultSet rs) throws SQLException {
+        final LandmarkDetails landmark = LandmarkDetails
+                .builder()
+                .id(rs.getLong("id"))
+                .name(rs.getString("name"))
+                .location(rs.getString("location"))
+                .image(rs.getBytes("image"))
+                .textDescription(rs.getString("text_description"))
+                .audioDescription(rs.getBytes("audio_description"))
+                .price(rs.getFloat("price"))
+                .category(rs.getString("category"))
+                .build();
+        final Integer visitCount = rs.getInt("visit_count");
+        return MostVisitedLandmarkDTO.builder().landmarkDetails(landmark).visitCount(visitCount).build();
     }
 }

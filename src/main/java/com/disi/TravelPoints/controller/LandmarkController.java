@@ -3,6 +3,7 @@ package com.disi.TravelPoints.controller;
 
 import com.disi.TravelPoints.dto.LandmarkDetails;
 import com.disi.TravelPoints.dto.AddLandmarkRequest;
+import com.disi.TravelPoints.dto.MostVisitedLandmarkDTO;
 import com.disi.TravelPoints.exception.CustomException;
 import com.disi.TravelPoints.service.LandmarkService;
 import lombok.*;
@@ -26,6 +27,11 @@ public class LandmarkController {
     @GetMapping
     public ResponseEntity<List<LandmarkDetails>> getAll(@RequestParam(required = false) String category, @RequestParam(required = false) String location) {
         return ResponseEntity.ok(landmarkService.findAll(category, location));
+    }
+
+    @GetMapping("/most-visited")
+    public ResponseEntity<List<MostVisitedLandmarkDTO>> getFirstFiveMostVisitedLandmarks() {
+        return ResponseEntity.ok(landmarkService.getFirstFiveMostVisitedLandmarks());
     }
 
     @PostMapping

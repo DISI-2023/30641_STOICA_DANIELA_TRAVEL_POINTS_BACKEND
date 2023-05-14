@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -36,7 +37,7 @@ public class OfferService {
         ).collect(Collectors.toList());
     }
 
-    public void add(AddOfferRequest request) throws CustomException {
+    public Long add(AddOfferRequest request) throws Exception {
         Landmark landmark = landmarkRepository.findById(request.getLandmark_id())
                 .orElseThrow(() -> CustomException
                         .builder()
@@ -46,36 +47,41 @@ public class OfferService {
         List<OfferDetails> offers = findAll();
         boolean canAdd = true;
         for (OfferDetails offer : offers) {
-            if (offer.getLandmark_id() == request.getLandmark_id()) {
+            if (Objects.equals(offer.getLandmark_id(), request.getLandmark_id())) {
                 Timestamp currentDate = new Timestamp(System.currentTimeMillis());
-                if (offer.getEnd().after(currentDate)){
+                if (offer.getEnd().after(currentDate)) {
                     canAdd = false;
                     break;
                 }
             }
         }
-
-        if (canAdd) {
-            Offer offer = Offer
-                    .builder()
-                    .start(request.getStart())
-                    .end(request.getEnd())
-                    .discount(request.getDiscount())
-                    .landmark(landmark)
-                    .build();
-            offerRepository.save(offer);
+        if (!canAdd) {
+            throw new Exception("Failed");
         }
+
+        Offer offer = Offer
+                .builder()
+                .start(request.getStart())
+                .end(request.getEnd())
+                .discount(request.getDiscount())
+                .landmark(landmark)
+                .build();
+        return offerRepository.save(offer).getId();
+
     }
 
-    public List<String> getUsersEmailsForActiveOffers() {
-        final List<Offer> activeOffers = offerRepository.findAll().stream()
-                .filter(offer -> offer.getEnd().toLocalDateTime().isAfter(LocalDateTime.now()))
-                .collect(Collectors.toList());
+    public List<String> getUsersEmailsForActiveOffers(Long offerId) throws CustomException {
+        Offer offer = offerRepository.findById(offerId)
+                .orElseThrow(() -> CustomException
+                        .builder()
+                        .status(HttpStatus.NOT_FOUND)
+                        .message("Landmark not found")
+                        .build());
+        if (offer.getEnd().toLocalDateTime().isBefore(LocalDateTime.now())) {
+            return List.of();
+        }
 
-        final List<Wishlist> wishlists = activeOffers.stream()
-                .map(activeOffer -> activeOffer.getLandmark().getWishlists())
-                .flatMap(Set::stream)
-                .collect(Collectors.toList());
+        final Set<Wishlist> wishlists = offer.getLandmark().getWishlists();
 
         return wishlists.stream()
                 .map(wishlist -> wishlist.getUser().getEmail())
@@ -104,5 +110,28 @@ public class OfferService {
         }
 
         offerRepository.save(offer);
+    }
+  
+    public void deleteById(Long id) {
+        offerRepository.deleteById(id);
+    }
+
+    public List<OfferDetails> getOffer(Long landmarkId) {
+        return offerRepository
+                .findAllByLandmark_Id(landmarkId)
+                .stream()
+                .map(this::mapOfferToOfferDetails)
+                .collect(Collectors.toList());
+    }
+
+    private OfferDetails mapOfferToOfferDetails(Offer offer) {
+        return OfferDetails
+                .builder()
+                .id(offer.getId())
+                .start(offer.getStart())
+                .end(offer.getEnd())
+                .discount(offer.getDiscount())
+                .landmark_id(offer.getLandmark().getId())
+                .build();
     }
 }

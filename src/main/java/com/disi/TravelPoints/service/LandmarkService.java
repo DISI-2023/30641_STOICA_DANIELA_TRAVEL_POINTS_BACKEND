@@ -2,6 +2,7 @@ package com.disi.TravelPoints.service;
 
 import com.disi.TravelPoints.dto.AddLandmarkRequest;
 import com.disi.TravelPoints.dto.LandmarkDetails;
+import com.disi.TravelPoints.dto.MostVisitedLandmarkDTO;
 import com.disi.TravelPoints.exception.CustomException;
 import com.disi.TravelPoints.model.Landmark;
 import com.disi.TravelPoints.repository.LandmarkJdbcRepository;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -67,5 +69,9 @@ public class LandmarkService {
 
     public byte[] getLandmarkAudioDescriptionById(Long id) {
         return landmarkRepository.getAudioDescriptionById(id);
+    }
+
+    public List<MostVisitedLandmarkDTO> getFirstFiveMostVisitedLandmarks() {
+        return landmarkJdbcRepository.getFirstFiveMostVisitedLandmarks();
     }
 }

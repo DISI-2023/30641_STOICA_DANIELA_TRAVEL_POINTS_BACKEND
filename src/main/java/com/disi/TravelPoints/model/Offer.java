@@ -7,7 +7,8 @@ import java.sql.Timestamp;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 @Entity
 @Table(name = "offers")
