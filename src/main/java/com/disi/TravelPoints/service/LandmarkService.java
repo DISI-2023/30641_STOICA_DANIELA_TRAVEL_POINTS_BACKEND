@@ -52,8 +52,6 @@ public class LandmarkService {
                         .build());
 
         landmark.setCategory(request.getCategory());
-        landmark.setAudioDescription(request.getAudioDescription());
-        landmark.setImage(request.getImage());
         landmark.setLocation(request.getLocation());
         landmark.setName(request.getName());
         landmark.setTextDescription(request.getTextDescription());
